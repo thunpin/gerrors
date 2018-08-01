@@ -22,3 +22,7 @@ func (h *httpErr) Error() string {
 func Unauthorized() error {
 	return &httpErr{http.StatusUnauthorized, "err_unauthorazied"}
 }
+
+func Forbidden() error {
+	return &httpErr{http.StatusForbidden, "err_forbidden"}
+}

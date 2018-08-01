@@ -11,3 +11,10 @@ func TestUnauthorizedCode(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestForbidenCode(t *testing.T) {
+	err := Forbidden()
+	if err == nil || err.(HttpErr).Code() != http.StatusForbidden {
+		t.Fail()
+	}
+}
