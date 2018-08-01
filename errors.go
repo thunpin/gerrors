@@ -6,7 +6,16 @@ type Errors []error
 
 // Error implements the error interface
 func (errs Errors) Error() string {
-	return fmt.Sprintf("%s", errs)
+	var message string
+	for i, err := range errs {
+		if i == 0 {
+			message = err.Error()
+		} else {
+			message = fmt.Sprintf("%s, %s", message, err.Error())
+		}
+	}
+
+	return message
 }
 
 func New(errs ...error) error {

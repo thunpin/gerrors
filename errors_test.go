@@ -2,6 +2,7 @@ package gerrors
 
 import (
 	"errors"
+	"strings"
 	"testing"
 )
 
@@ -53,4 +54,18 @@ func TestNewWithInvalidErrorsAndPartialInvalidError(t *testing.T) {
 	if len(err.(Errors)) != 1 {
 		t.Fail()
 	}
+}
+
+func TestContainsAllErrorsMsg(t *testing.T) {
+	errs := New(errors.New("err1"), errors.New("err2"))
+	err := New(errs, errors.New("err3"))
+
+	containsErr1 := strings.Contains(err.Error(), "err1")
+	containsErr2 := strings.Contains(err.Error(), "err2")
+	containsErr3 := strings.Contains(err.Error(), "err3")
+
+	if !(containsErr1 && containsErr2 && containsErr3) {
+		t.Fail()
+	}
+
 }
