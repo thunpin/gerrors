@@ -19,6 +19,30 @@ func TestForbidenCode(t *testing.T) {
 	}
 }
 
+func TestNotFoundCode(t *testing.T) {
+	err := NotFound("", nil)
+	if !testHasStatusCode(err, http.StatusNotFound) {
+		t.Fail()
+	}
+}
+
+func TestNotFoundMessage(t *testing.T) {
+	msg := "oops"
+	err := NotFound(msg, nil)
+	if !testHasStatusCode(err, http.StatusNotFound) || err.Error() != msg {
+		t.Fail()
+	}
+}
+
+func TestNotFoundObj(t *testing.T) {
+	obj := "obj"
+	err := NotFound("", obj)
+	if !testHasStatusCode(err, http.StatusNotFound) ||
+		err.(HttpErr).Obj() != obj {
+		t.Fail()
+	}
+}
+
 func testHasStatusCode(err error, statusCode uint) bool {
 	if err == nil {
 		return false
