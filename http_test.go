@@ -7,21 +7,21 @@ import (
 
 func TestUnauthorizedCode(t *testing.T) {
 	err := Unauthorized()
-	if !testHasStatusCode(err, http.StatusUnauthorized) {
+	if !testIsCode(err, http.StatusUnauthorized) {
 		t.Fail()
 	}
 }
 
 func TestForbidenCode(t *testing.T) {
 	err := Forbidden()
-	if !testHasStatusCode(err, http.StatusForbidden) {
+	if !testIsCode(err, http.StatusForbidden) {
 		t.Fail()
 	}
 }
 
 func TestNotFoundCode(t *testing.T) {
 	err := NotFound("", nil)
-	if !testHasStatusCode(err, http.StatusNotFound) {
+	if !testIsCode(err, http.StatusNotFound) {
 		t.Fail()
 	}
 }
@@ -29,7 +29,7 @@ func TestNotFoundCode(t *testing.T) {
 func TestNotFoundMessage(t *testing.T) {
 	msg := "oops"
 	err := NotFound(msg, nil)
-	if !testHasStatusCode(err, http.StatusNotFound) || err.Error() != msg {
+	if !testIsCode(err, http.StatusNotFound) || err.Error() != msg {
 		t.Fail()
 	}
 }
@@ -37,21 +37,17 @@ func TestNotFoundMessage(t *testing.T) {
 func TestNotFoundObj(t *testing.T) {
 	obj := "obj"
 	err := NotFound("", obj)
-	if !testHasStatusCode(err, http.StatusNotFound) ||
-		err.(HttpErr).Obj() != obj {
+	if !testIsCode(err, http.StatusNotFound) && !testIsObj(err, obj) {
 		t.Fail()
 	}
 }
 
-func testHasStatusCode(err error, statusCode uint) bool {
-	if err == nil {
-		return false
-	}
+func TestPreconditionFailed(t *testing.T) {
+}
 
-	switch err.(type) {
-	case HttpErr:
-		return err.(HttpErr).Code() == statusCode
-	default:
-		return false
-	}
+func testIsCode(err ModelError, statusCode uint) bool {
+	return err != nil && err.Code() == statusCode
+}
+func testIsObj(err ModelError, obj interface{}) bool {
+	return err != nil && err.Obj() == obj
 }

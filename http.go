@@ -2,12 +2,6 @@ package gerrors
 
 import "net/http"
 
-type HttpErr interface {
-	Code() uint
-	Obj() interface{}
-	error
-}
-
 type httpErr struct {
 	code    uint
 	message string
@@ -23,14 +17,15 @@ func (h httpErr) Error() string {
 func (h httpErr) Obj() interface{} {
 	return h.obj
 }
-func Unauthorized() error {
+
+func Unauthorized() ModelError {
 	return httpErr{http.StatusUnauthorized, "err_unauthorazied", nil}
 }
 
-func Forbidden() error {
+func Forbidden() ModelError {
 	return httpErr{http.StatusForbidden, "err_forbidden", nil}
 }
 
-func NotFound(msg string, obj interface{}) error {
+func NotFound(msg string, obj interface{}) ModelError {
 	return httpErr{http.StatusNotFound, msg, obj}
 }
