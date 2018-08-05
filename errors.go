@@ -18,7 +18,7 @@ func (errs Errors) Error() string {
 	return message
 }
 
-func New(errs ...error) error {
+func New(errs ...error) Errors {
 	newErrs := buildErrors(&errs)
 
 	if len(newErrs) == 0 {
