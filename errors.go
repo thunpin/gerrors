@@ -18,6 +18,20 @@ func (errs Errors) Error() string {
 	return message
 }
 
+func (errs Errors) Contains(err error) bool {
+	if err == nil {
+		return false
+	}
+
+	for _, currentError := range errs {
+		if currentError == err {
+			return true
+		}
+	}
+
+	return false
+}
+
 func New(errs ...error) Errors {
 	newErrs := buildErrors(&errs)
 

@@ -68,3 +68,20 @@ func TestContainsAllErrorsMsg(t *testing.T) {
 		t.Fail()
 	}
 }
+
+func TestVerifyIfContainsTheError(t *testing.T) {
+	err := errors.New("test")
+	errs := New(err)
+	if !errs.Contains(err) {
+		t.Fail()
+	}
+
+	if errs.Contains(nil) {
+		t.Fail()
+	}
+
+	err = errors.New("test2")
+	if errs.Contains(err) {
+		t.Fail()
+	}
+}
