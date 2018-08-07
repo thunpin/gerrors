@@ -1,5 +1,5 @@
 #go parameters
-GOCMD=go
+GOCMD=CGO_ENABLED=0 vgo
 GOBUILD=$(GOCMD) build
 GOCLEAN=$(GOCMD) clean
 GOTEST=$(GOCMD) test
