@@ -1,7 +1,7 @@
 package gerrors
 
 type ModelError interface {
-	Code() uint
+	Code() int
 	Obj() interface{}
 	error
 }

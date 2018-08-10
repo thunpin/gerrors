@@ -74,7 +74,7 @@ func TestInternalServerErrorObj(t *testing.T) {
 	}
 }
 
-func testIsCode(err ModelError, statusCode uint) bool {
+func testIsCode(err ModelError, statusCode int) bool {
 	return err != nil && err.Code() == statusCode
 }
 func testIsObj(err ModelError, obj interface{}) bool {

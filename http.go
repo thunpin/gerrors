@@ -3,12 +3,12 @@ package gerrors
 import "net/http"
 
 type httpErr struct {
-	code    uint
+	code    int
 	message string
 	obj     interface{}
 }
 
-func (h httpErr) Code() uint {
+func (h httpErr) Code() int {
 	return h.code
 }
 func (h httpErr) Error() string {
