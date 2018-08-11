@@ -11,7 +11,7 @@ func (errs Errors) Error() string {
 		if i == 0 {
 			message = err.Error()
 		} else {
-			message = fmt.Sprintf("%s, %s", message, err.Error())
+			message = fmt.Sprintf("%s,%s", message, err.Error())
 		}
 	}
 
