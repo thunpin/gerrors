@@ -1,7 +1,11 @@
 package gerrors
 
-type ModelError interface {
-	Code() int
-	Obj() interface{}
-	error
+type Error struct {
+	Code    int
+	Message string
+	Obj     interface{}
+}
+
+func (e Error) Error() string {
+	return e.Message
 }

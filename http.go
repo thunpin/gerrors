@@ -2,39 +2,23 @@ package gerrors
 
 import "net/http"
 
-type httpErr struct {
-	code    int
-	message string
-	obj     interface{}
+func Unauthorized() Error {
+	return Error{http.StatusUnauthorized, "err_unauthorazied", nil}
 }
 
-func (h httpErr) Code() int {
-	return h.code
-}
-func (h httpErr) Error() string {
-	return h.message
-}
-func (h httpErr) Obj() interface{} {
-	return h.obj
+func Forbidden() Error {
+	return Error{http.StatusForbidden, "err_forbidden", nil}
 }
 
-func Unauthorized() ModelError {
-	return httpErr{http.StatusUnauthorized, "err_unauthorazied", nil}
+func NotFound(msg string, obj interface{}) Error {
+	return Error{http.StatusNotFound, msg, obj}
 }
 
-func Forbidden() ModelError {
-	return httpErr{http.StatusForbidden, "err_forbidden", nil}
+func PreconditionFailed(msg string) Error {
+	return Error{http.StatusPreconditionFailed, msg, nil}
 }
-
-func NotFound(msg string, obj interface{}) ModelError {
-	return httpErr{http.StatusNotFound, msg, obj}
-}
-
-func PreconditionFailed(msg string) ModelError {
-	return httpErr{http.StatusPreconditionFailed, msg, nil}
-}
-func InternalServerError(err error) ModelError {
-	return httpErr{
+func InternalServerError(err error) Error {
+	return Error{
 		http.StatusInternalServerError,
 		"err_internal_server_error",
 		err,

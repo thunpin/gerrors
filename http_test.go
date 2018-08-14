@@ -74,12 +74,12 @@ func TestInternalServerErrorObj(t *testing.T) {
 	}
 }
 
-func testIsCode(err ModelError, statusCode int) bool {
-	return err != nil && err.Code() == statusCode
+func testIsCode(err Error, statusCode int) bool {
+	return err.Code == statusCode
 }
-func testIsObj(err ModelError, obj interface{}) bool {
-	return err != nil && err.Obj() == obj
+func testIsObj(err Error, obj interface{}) bool {
+	return err.Obj == obj
 }
-func testIsMsg(err ModelError, msg string) bool {
-	return err != nil && err.Error() == msg
+func testIsMsg(err Error, msg string) bool {
+	return err.Error() == msg
 }
