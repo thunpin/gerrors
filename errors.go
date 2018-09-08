@@ -24,7 +24,7 @@ func (errs Errors) Contains(err error) bool {
 	}
 
 	for _, currentError := range errs {
-		if currentError == err {
+		if currentError.Error() == err.Error() {
 			return true
 		}
 	}
