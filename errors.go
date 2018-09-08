@@ -33,6 +33,9 @@ func (errs Errors) Contains(err error) bool {
 }
 
 func New(errs ...error) Errors {
+	if len(errs) == 0 {
+		return nil
+	}
 	newErrs := buildErrors(&errs)
 
 	if len(newErrs) == 0 {
