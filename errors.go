@@ -32,7 +32,7 @@ func (errs Errors) Contains(err error) bool {
 	return false
 }
 
-func New(errs ...error) Errors {
+func New(errs ...error) error {
 	if len(errs) == 0 {
 		return nil
 	}
